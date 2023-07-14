@@ -1,5 +1,6 @@
 import cv2
 import mediapipe as mp
+x=int(input("Enter x Value"))
 
 class handTracker():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, modelComplexity=1, trackCon=0.5):
@@ -32,7 +33,7 @@ class handTracker():
                 h, w, c = image.shape
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 lmlist.append([id, cx, cy])
-                if draw and id == 9:  # Display purple circle only for the middle finger
+                if draw and id == x:  # Display purple circle only for the middle finger
                     cv2.circle(image, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
 
         return lmlist
@@ -46,7 +47,7 @@ def main():
         image = tracker.handsFinder(image)
         lmList = tracker.positionFinder(image)
         if len(lmList) != 0:
-            print(lmList[12])  # Print the position of the middle finger
+            print(lmList[x])  # Print the position of the middle finger
 
         cv2.imshow("Video", image)
         if cv2.waitKey(1) & 0xFF == ord('q'):
